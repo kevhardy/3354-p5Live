@@ -1,11 +1,17 @@
 ## Project Scope
 
-1. Something
-    1.1.1. Something else
-    1.1.2. blah
-1.2 Something again
-    1.2.1. asdfa
-    1.2.2. asdfsadf
-1.3. HMM
-    1.3.1. okay
-    1.3.2. test
+1. P5 Live
+    1. Console
+        - Error Output
+        - Debug Information
+    2. Editor
+        - View, edit Python
+        - Function panel
+            - Run code
+            - Stop code
+            - Load Source (Local)
+            - Open Tutorial
+    3. Canvas
+        - Render p5 Graphics
+        - Handle User Inputs
+

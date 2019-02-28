@@ -1,15 +1,17 @@
 ## Jobs and Responsibilities
 
-Calvin Ross
+### Project Deliverable 1
 
-Kevin Hardy
+Calvin Ross &mdash; Software Requirements (Functional)
 
-Shreya Soman
+Kevin Hardy &mdash; Case Diagram
 
-Connor Woltz
+Shreya Soman &mdash; Architectural Design
 
-Garret Fox
+Connor Woltz &mdash; Sequence Diagram (1/2)
 
-Matt Lagrone
+Garret Fox &mdash; Sequence Diagram (1/2)
 
-Akash Dotel
+Matt Lagrone &mdash; Class Diagram
+
+Akash Dotel &mdash; Software Requirements (Non-Functional)

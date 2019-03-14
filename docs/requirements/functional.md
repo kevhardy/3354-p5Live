@@ -129,7 +129,8 @@ Key value;
 Current focused object.
 
 **Source**
-Controller - Key press event handler.
+Controller - Key press event handler;
+Controller - Mouse event handler.
 
 **Outputs**
 None.
@@ -142,7 +143,7 @@ Updates the text value within the Editor text box to reflect the input provided 
 
 **Requirements**
 The key value must be a valid ASCII character.
-The Editor segment must be the currently focused.
+The Editor segment must be the currently focused object.
 
 **Pre-Condition**
 The page must be loaded.
@@ -305,23 +306,74 @@ None.
 --------------------
 
 **Function**
+Key press event handler.
 
 **Description**
+Detect input provided by the user's keyboard and provide signals to appropriate modules.
 
 **Inputs**
+Key press event.
 
 **Source**
+Client web browser.
 
 **Outputs**
+Key press signal;
+Key value.
 
 **Destination**
+View control loop.
 
 **Action**
+When the user interacts with their browser by pressing a key, store the value of the key in the View module's main loop and is given a signal that a key press had occurred.
 
 **Requirements**
+User keyboard input.
 
 **Pre-Condition**
+None.
 
 **Post-Condition**
+The value stored in the control loop is updated with the new key value.
 
 **Side Effects**
+This function changes the effect of the Editor's update text box method.
+
+--------------------
+
+**Function**
+Mouse event handler.
+
+**Description** Detect input provided by the user's mouse and record the updated mouse data.
+
+**Inputs**
+Mouse coordinates;
+Mouse click signal.
+
+**Source**
+Client web browser.
+
+**Outputs**
+Focused object identifier;
+Mouse click signal;
+Mouse coordinates.
+
+**Destination**
+View control loop.
+
+**Action**
+When the user interacts with their browser by moving or clicking their mouse, the coordinates of the mouse cursor is stored in the View module's main control loop.
+If a mouse click occurred, then if the location of the mouse is over a segment of the page that is not currently focused, then the value of the currently focused object is updated to the segment containing the cursor's coordinates.
+
+**Requirements**
+User interaction with the mouse.
+
+**Pre-Condition**
+None.
+
+**Post-Condition**
+The currently focused object is updated.
+The stored value of the mouse's coordinates is updated.
+
+**Side Effects**
+This function changes the effect of the Editor's update text box method.

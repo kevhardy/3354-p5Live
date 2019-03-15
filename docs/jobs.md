@@ -2,16 +2,16 @@
 
 ### Project Deliverable 1
 
-Calvin Ross --- Software Requirements (Functional)
+Calvin Ross &mdash; Software Requirements (Functional)
 
-Kevin Hardy --- Case Diagram
+Kevin Hardy &mdash; Case Diagram
 
-Shreya Soman --- Architectural Design
+Shreya Soman &mdash; Architectural Design
 
-Connor Woltz --- Sequence Diagram (1/2)
+Connor Woltz &mdash; Sequence Diagram (1/2)
 
-Garret Fox --- Sequence Diagram (1/2)
+Garret Fox &mdash; Sequence Diagram (1/2)
 
-Matt Lagrone --- Class Diagram
+Matt Lagrone &mdash; Class Diagram
 
-Akash Dotel --- Software Requirements (Non-Functional)
+Akash Dotel &mdash; Software Requirements (Non-Functional)

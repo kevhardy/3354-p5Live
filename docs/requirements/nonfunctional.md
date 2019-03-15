@@ -3,7 +3,7 @@
 ### Product requirements:
 
 1. The website should go down for maintenance only when it is absolutely necessary. Otherwise it should always remain accessible.
-2. The server should not take longer than 10 seconds to respond to any HTML request methods when the site is not under maintenance
+2. The server should not take longer than 10 seconds to respond to any HTML request methods when the site is not under maintenance.
 3. All input received by the server should be sanitized to prevent security vulnerabilities.
 4. Any errors in inputted python code should be output to console with suggestions on why it is incorrect (i.e. incorrect syntax, misspelled function name).
 

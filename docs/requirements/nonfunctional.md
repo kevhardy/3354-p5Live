@@ -2,14 +2,14 @@
 
 ### Product requirements:
 
-1. The website should go down for maintenance only when it is absolutely necessary. Otherwise it should always remain accessible.
-2. The server should not take longer than 10 seconds to respond to any HTML request methods when the site is not under maintenance
+1. The website should go down for maintenance purpose only when it is absolutely necessary. Otherwise it should always remain accessible to the users.
+2. The server should not take more than 10 seconds to respond to any HTML request methods when the site is not under maintenance.
 3. All input received by the server should be sanitized to prevent security vulnerabilities.
-4. Any errors in inputted python code should be output to console with suggestions on why it is incorrect (i.e. incorrect syntax, misspelled function name).
+4. If there is any input error in python code from the user, it should be output to console with suggestions on why it is incorrect (i.e. incorrect syntax, misspelled function name).
 
 ### Organizational Requirements:
 
-1. Development code should be structured in a MVC architecture with each component going in their respective folders (Model, View, or Controller).
+1. Development code should be structured in a MVC architecture with each component going to their respective folders (Model, View, or Controller).
 2. The user should be able to easily view the text editor, console, and canvas in the same window.
 
 ### External Requirements

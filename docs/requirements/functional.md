@@ -1,4 +1,4 @@
-# P5Live Functional Requirements
+# p5Live Functional Requirements
 
 ## Client
 

@@ -1,0 +1,52 @@
+********************************COMPARATIVE RESEARCH**********************************
+********************************By: Garret Fox      **********************************  (WORK IN PROGRESS)
+______________________________________________________________________________________
+                               
+                               SymPy vs p5Live
+______________________________________________________________________________________
+Introduction:
+_____________
+
+  For our project we have chosen p5Live as our live-coding environment tool,
+as it is a simplistic and fun way to introduce oneself to the versitile language of Python.
+
+  This document will focus on the key differences as well as the similarities between p5Live
+and another live-coding python environment tool: SymPy.
+
+______________________________________________________________________________________
+
+p5Live Main Features:
+_____________________
+
+- Based in Python programming language
+
+- graphical live-coding enironment tool 
+
+- user-interface for immediate feedback
+
+- Free
+
+
+
+
+
+SymPy Main Features:
+_____________________
+
+- Based in Python programming language
+
+- mathematical live-coding environment tool
+
+- full featured computer algebra system (CAS)
+
+- no user-interface
+
+- Free
+
+
+
+
+
+
+
+______________________________________________________________________________________

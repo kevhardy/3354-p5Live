@@ -1,11 +1,7 @@
-********************************COMPARATIVE RESEARCH**********************************
-********************************By: Garret Fox      **********************************  (WORK IN PROGRESS)
-______________________________________________________________________________________
-                               
-                               SymPy vs p5Live
-______________________________________________________________________________________
-Introduction:
-_____________
+# Comparative Research (SymPy-Live vs. p5Live)
+## By: Garret Fox
+
+## Introduction
 
   For our project we have chosen p5Live as our live-coding environment tool,
 as it is a simplistic and fun way to introduce oneself to the versitile language of Python.
@@ -13,55 +9,41 @@ as it is a simplistic and fun way to introduce oneself to the versitile language
   This document will focus on the key differences as well as the similarities between p5Live
 and another live-coding python environment tool: SymPy.
 
-______________________________________________________________________________________
-
-p5Live Main Features:
-_____________________
+## p5Live Main Features
 
 - Based in Python programming language
 
-- graphical live-coding enironment tool 
+- Graphical live-coding enironment tool 
 
-- user-interface for immediate feedback
+- User-interface for immediate feedback
 
 - Free
 
-SymPy Main Features:
-_____________________
+## SymPy Main Features
 
 - Based in Python programming language
 
-- mathematical live-coding environment tool
+- Mathematical live-coding environment tool
 
-- full featured computer algebra system (CAS)
+- Full featured computer algebra system (CAS)
 
-- no user-interface
+- No user-interface
 
 - Free
-______________________________________________________________________________________
 
-FUNCTIONAL DIFFERENCES
-______________________________________________________________________________________
+## Functional Differences
 
-
-
-Sympy
-_____
+### Sympy
 
 SymPy is used primarily as an interactive tool that models simple and highly complicated mathematical models. [1]
-
 It can also be used as an auxiliary tool in addition to another main program in case the need for complicated math arises.[1]
 
+### p5Live
 
-
-p5 Live
-_______
-
-p5 Live is used to create interesting designs and geometric animations in various different ways, and is usually aided by the use 
-
+p5Live is used to create interesting designs and geometric animations in various different ways, and is usually aided by the use 
 of Javascript. It can readily be embedded into most web browsers, potentially making it a useful tool for web designers.  
 
-WORKS CITED:
+## Works Cited:
 
 [1] https://marketplace.visualstudio.com/itemdetails?itemName=filipesabella.live-p5
 
@@ -72,6 +54,3 @@ WORKS CITED:
 [4] https://github.com/yangsu/p5-live/tree/master/sketches/waves
 
 [5] https://medium.com/processing-foundation/p5-a-python-implementation-of-the-processing-api-5f05c62db23b
-
-
-

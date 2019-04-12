@@ -40,9 +40,8 @@ It can also be used as an auxiliary tool in addition to another main program in 
 
 ### p5Live
 
-p5Live is used to create interesting designs and geometric animations in various different ways, and is usually aided by the use 
-of Javascript. It can readily be embedded into most web browsers, potentially making it a useful tool for web designers.  
-
+p5Live is used to create interesting designs and geometric animations in various different ways. It was designed to be a python implementation of the processing API. It is designed to be an easy way for beginning python programmers to design and utilize high-level functions that would normally dissuade them from attempting interesting projects.[6]  
+###
 ## Works Cited:
 
 [1] https://marketplace.visualstudio.com/itemdetails?itemName=filipesabella.live-p5
@@ -54,3 +53,5 @@ of Javascript. It can readily be embedded into most web browsers, potentially ma
 [4] https://github.com/yangsu/p5-live/tree/master/sketches/waves
 
 [5] https://medium.com/processing-foundation/p5-a-python-implementation-of-the-processing-api-5f05c62db23b
+
+[6] https://medium.com/processing-foundation/p5-a-python-implementation-of-the-processing-api-5f05c62db23b

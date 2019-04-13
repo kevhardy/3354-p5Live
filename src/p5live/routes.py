@@ -1,6 +1,7 @@
 from p5live import app
 from flask import render_template, url_for, request, jsonify, json
 from io import StringIO
+from contextlib import redirect_stdout
 import sys
 import traceback
 
@@ -13,8 +14,10 @@ def _evaluate():
     stmt = str(request.form.get('statement'))
     out = StringIO()
     try:
-        text = str(eval(stmt))
-        out.write(text)
+        with redirect_stdout(out):
+            text = eval(stmt)
+            if text:
+                print(text)
     except:
         etype, value, tb = sys.exc_info()
         if tb.tb_next is not None:

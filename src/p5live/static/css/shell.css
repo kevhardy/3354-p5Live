@@ -1,0 +1,43 @@
+#shell {
+  margin-top: 2em;
+  font-family: monospace;
+  font-size: 1.3em;
+}
+
+.shell-output {
+  margin: 0em 0em 0em 0em;
+  padding: 0.25em 0.25em 0.25em 0.25em;
+  width: 100%;
+  height: 25em;
+  background-color: #f3f5f7;
+  overflow: auto;
+}
+
+.shell-caret {
+  width: 5%;
+  width: -moz-calc(3em);
+  width: -webkit-calc(3em);
+  width: calc(3em);
+  outline: none;
+  border: 0;
+  border-top: 1px solid silver;
+  overflow: hidden;
+  resize: none;
+  padding: 0.25em;
+  background-color: #f3f5f7;
+}
+
+.shell-prompt {
+  width: 95%;
+  width: -moz-calc(100% - 3em);
+  width: -webkit-calc(100% - 3em);
+  width: calc(100% - 3em);
+  outline: none;
+  border: 0;
+  border-top: 1px solid silver;
+  overflow: hidden;
+  resize: none;
+  padding: 0.25em;
+  padding-left: 0;
+  background-color: #f3f5f7;
+}

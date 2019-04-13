@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/shell.css') }}" type="text/css">
+{% endblock header %}
+{% block content %}
+<div id="main" class="container content">
+  <h1>p5Live</h1>
+  <article id="shell"></article>
+  <script src="{{ url_for('static', filename='js/shell.js') }}"></script>
+  <script>
+    $.when($.ready).then(function () {
+      let shell = new Shell('#shell');
+      shell.focus();
+    });
+  </script>
+</div>
+{% endblock content %}

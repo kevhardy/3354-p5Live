@@ -33,15 +33,24 @@ and another live-coding python environment tool: SymPy.
 
 ## Functional Differences
 
-### Sympy
+### SymPy Live
 
-SymPy is used primarily as an interactive tool that models simple and highly complicated mathematical models. [1]
-It can also be used as an auxiliary tool in addition to another main program in case the need for complicated math arises.[1]
+SymPy is used primarily as an interactive tool that models simple and highly complicated mathematical models, and can also be used as an auxiliary tool in addition to another main program in case the need for complicated math arises.[1]
+
+SymPy Live utilizes the Google App Machine (GAM) to handle interactions between the user and the website. GAM is a serverless application platform, allowing developers to not worry themselves with managing underlying server infrastructure. This reduces the overhead of the developer and allows for a more productive development.[7]
+
+Within the SymPy site itself, the user can enter various commands and functions, declare variables, and evaluate expressions. It is based in a regular Python shell, with some commands being executed by default:
+
+ from __future__ import division
+>>> from sympy import *
+>>> x, y, z, t = symbols('x y z t')
+>>> k, m, n = symbols('k m n', integer=True)
+>>> f, g, h = symbols('f g h', cls=Function) [2]
 
 ### p5Live
 
 p5Live is used to create interesting designs and geometric animations in various different ways. It was designed to be a python implementation of the processing API. It is designed to be an easy way for beginning python programmers to design and utilize high-level functions that would normally dissuade them from attempting interesting projects.[6]  
-###
+
 ## Works Cited:
 
 [1] https://marketplace.visualstudio.com/itemdetails?itemName=filipesabella.live-p5
@@ -55,3 +64,5 @@ p5Live is used to create interesting designs and geometric animations in various
 [5] https://medium.com/processing-foundation/p5-a-python-implementation-of-the-processing-api-5f05c62db23b
 
 [6] https://medium.com/processing-foundation/p5-a-python-implementation-of-the-processing-api-5f05c62db23b
+
+[7] https://cloud.google.com/appengine/

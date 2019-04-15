@@ -19,7 +19,7 @@ and another live-coding python environment tool: SymPy.
 
 - Free
 
-## SymPy Main Features
+## SymPy Live Main Features
 
 - Based in Python programming language
 
@@ -27,7 +27,7 @@ and another live-coding python environment tool: SymPy.
 
 - Full featured computer algebra system (CAS)
 
-- No user-interface
+- Basic Python shell interface
 
 - Free
 
@@ -42,10 +42,10 @@ SymPy Live utilizes the Google App Machine (GAM) to handle interactions between 
 Within the SymPy site itself, the user can enter various commands and functions, declare variables, and evaluate expressions. It is based in a regular Python shell, with some commands being executed by default:
 
  from __future__ import division
->>> from sympy import *
->>> x, y, z, t = symbols('x y z t')
->>> k, m, n = symbols('k m n', integer=True)
->>> f, g, h = symbols('f g h', cls=Function) [2]
+ from sympy import *
+ x, y, z, t = symbols('x y z t')
+ k, m, n = symbols('k m n', integer=True)
+ f, g, h = symbols('f g h', cls=Function) [2]
 
 ### p5Live
 

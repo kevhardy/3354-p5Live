@@ -39,18 +39,19 @@ SymPy is used primarily as an interactive tool that models simple and highly com
 
 SymPy Live utilizes the Google App Machine (GAM) to handle interactions between the user and the website. GAM is a serverless application platform, allowing developers to not worry themselves with managing underlying server infrastructure. This reduces the overhead of the developer and allows for a more productive development.[7]
 
-Within the SymPy site itself, the user can enter various commands and functions, declare variables, and evaluate expressions. It is based in a regular Python shell, with some commands being executed by default:
+Within the SymPy site itself, the user can enter various commands and functions, declare variables, and evaluate expressions. It is based in a regular Python shell, with some commands being executed by default:[2]
 
- from __future__ import division
- 
- from sympy import *
- 
- x, y, z, t = symbols('x y z t')
- 
- k, m, n = symbols('k m n', integer=True)
- 
- f, g, h = symbols('f g h', cls=Function)
- [2]
+```python
+from __future__ import division
+
+from sympy import *
+
+x, y, z, t = symbols('x y z t')
+
+k, m, n = symbols('k m n', integer=True)
+
+f, g, h = symbols('f g h', cls=Function)
+```
 
 ### p5Live
 

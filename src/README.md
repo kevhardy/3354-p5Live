@@ -8,7 +8,7 @@ $ pip install --user -e .
 
 ## Running
 
-To run the server, execute the `run.py` file (if on a Linux machine) or run
+To run the server, execute the `run.py` file or run
 ```bash
 $ python run.py
 ```

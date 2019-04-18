@@ -9,4 +9,4 @@ def index ():
 @app.route('/_evaluate', methods=['POST'])
 def _evaluate ():
     stmt = str(request.form.get('statement'))
-    return jsonify({'output': execute(stmt)})
+    return jsonify({'output': execute(stmt).output})

@@ -14,6 +14,12 @@ This function is called with a string as a parameter that represents a line that
 
 The code is as follows:
 ```python
+from io import StringIO
+from contextlib import redirect_stdout
+from collections import namedtuple
+import sys
+import traceback
+
 ExecOut = namedtuple('ExecOut', ['output', 'noexcept'])
 
 def execute (stmt):
@@ -37,6 +43,8 @@ The `noexcept` variable is used to identify whether or not the statement that wa
 
 To test this function, we designed a test case that tests what kinds of statements throw an exception:
 ```python
+import unittest
+
 class TestExecute (unittest.TestCase):
     test_stmts = []
     try:
@@ -64,7 +72,7 @@ print('hello')
 x = 2
 4096*2+(3+4)*16
 ```
-produces the output:
+`TestExecute` produces the output:
 ```
 ======================================================================
 FAIL: test_noexcept (__main__.TestExecute) (stmt='a = 2')
@@ -73,7 +81,7 @@ Traceback (most recent call last):
   File "execute.py", line 41, in test_noexcept
     'statement threw an exception\n\t {}'.format(stmt))
 AssertionError: False is not true : statement threw an exception
-	 a = 2
+     a = 2
 
 ======================================================================
 FAIL: test_noexcept (__main__.TestExecute) (stmt='x = 2')
@@ -82,7 +90,7 @@ Traceback (most recent call last):
   File "execute.py", line 41, in test_noexcept
     'statement threw an exception\n\t {}'.format(stmt))
 AssertionError: False is not true : statement threw an exception
-	 x = 2
+     x = 2
 
 ----------------------------------------------------------------------
 Ran 1 test in 0.001s

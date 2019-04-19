@@ -2,10 +2,10 @@
 
 p5Live is split into three modules: the editor, the console, and the canvas.
 The editor in this context will also include the execution of Python code on the server.
-Both the console and the canvas depend on the editor to act as the source of the data required by the primary functionality of each; the console will require error outputs and tracebacks provided while the user's code is being executed, and the canvas will require the vertex and index buffers of the p5 backend.
+Both the console and the canvas depend on the editor to act as their source of data; the console will require error outputs and tracebacks from the execution of the user's code, and the canvas will require the vertex and index buffers from the p5 backend.
 
-However, the primary functionality of all three modules themselves do not necessarily depend on each other beyond this, and to that end, testing will be done with predefined inputs as test cases rather than inputs provided by the editor.
-With this, we therefore intend to implement a bottom-up strategy for integration testing.
+However, the primary functionality of all three modules themselves do not necessarily depend on each other beyond this, and to that end, testing will be done with predefined inputs as test cases rather than with inputs provided by the editor.
+We therefore intend to implement a bottom-up strategy for integration testing.
 
 ### Editor Unit Test &mdash; The `execute()` method
 

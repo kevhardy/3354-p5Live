@@ -3,10 +3,10 @@
 
 ## Introduction
 
-  For our project we have chosen p5Live as our live-coding environment tool,
+For our project we have chosen p5Live as our live-coding environment tool,
 as it is a simplistic and fun way to introduce oneself to the versatile language of Python.
 
-  This document will focus on the key differences as well as the similarities between p5Live
+This document will focus on the key differences as well as the similarities between p5Live
 and another live-coding python environment tool: SymPy.
 
 ## p5Live Main Features

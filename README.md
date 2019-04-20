@@ -1,6 +1,6 @@
 # p5Live
 
-![](https://imgur.com/bPh5PrJ)
+![](https://i.imgur.com/bPh5PrJ)
 
 [p5](https://github.com/p5py/p5) is a Python module dedicated to providing users an intuitive and functional API for creating interactive graphics and animations in Python.
 

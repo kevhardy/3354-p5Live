@@ -1,0 +1,50 @@
+#editor {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  float: left;
+  margin: 0;
+  font-family: monospace;
+  font-size: 1.3em;
+  background-color: #f3f5f7;
+}
+
+.editor-input {
+  flex: 0 1 80%;
+  margin: 0;
+  padding: 0.25em;
+  border: 0;
+  width: auto;
+  resize: none;
+  overflow: auto;
+  outline: none;
+  font-size: inherit;
+  background-color: inherit;
+}
+
+.editor-console {
+  flex: 0 1 20%;
+  display: flex;
+  max-height: 20%;
+  font-size: inherit;
+  background-color: inherit;
+}
+
+.editor-run {
+  flex: 0 0 3em;
+  font-size: inherit;
+  background-color: inherit;
+}
+
+.editor-output {
+  flex: 1;
+  outline: none;
+  border: 0;
+  border-top: 1px solid silver;
+  overflow: auto;
+  resize: none;
+  padding: 0.25em;
+  font-size: inherit;
+  background-color: inherit;
+}

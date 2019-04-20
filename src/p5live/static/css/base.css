@@ -1,8 +1,4 @@
 #main.content {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-#main.content, h1 {
-  margin-bottom: 1em;
+  display: flex;
+  height: 75vh;
 }

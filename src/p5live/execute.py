@@ -1,15 +1,11 @@
 from io import StringIO
 from contextlib import redirect_stdout
-from collections import namedtuple
 import sys
 import traceback
 import unittest
 
-ExecOut = namedtuple('ExecOut', ['output', 'noexcept'])
-
-def execute (stmt):
+def execute (stmt, out):
     noexcept = True
-    out = StringIO()
     try:
         with redirect_stdout(out):
             text = eval(stmt)
@@ -22,7 +18,7 @@ def execute (stmt):
             tb = tb.tb_next
         text = traceback.format_exception(etype, value, tb)
         out.write(''.join(text))
-    return ExecOut(out.getvalue(), noexcept)
+    return noexcept
 
 class TestExecute (unittest.TestCase):
     test_stmts = []
@@ -37,7 +33,7 @@ class TestExecute (unittest.TestCase):
             res = execute(stmt)
             with self.subTest(stmt=stmt):
                 self.assertIsNotNone(res, 'execute returned \'None\'')
-                self.assertTrue(res.noexcept,
+                self.assertTrue(res,
                         'statement threw an exception\n\t {}'.format(stmt))
 
 if __name__ == '__main__':

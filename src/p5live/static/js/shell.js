@@ -5,6 +5,8 @@ class Shell {
     this.selfEl = $(element) || $(document.body);
     this.outputEl = $('<div/>').
       addClass('shell-output');
+    this.inputEl = $('<div/>').
+      addClass('shell-input');
     this.caretEl = $('<textarea/>').
       addClass('shell-caret').
       attr({
@@ -37,9 +39,10 @@ class Shell {
       }, this)
     );
 
+    this.inputEl.append(this.caretEl);
+    this.inputEl.append(this.promptEl);
     this.selfEl.append(this.outputEl);
-    this.selfEl.append(this.caretEl);
-    this.selfEl.append(this.promptEl);
+    this.selfEl.append(this.inputEl);
 
     this.evaluating = false;
   }

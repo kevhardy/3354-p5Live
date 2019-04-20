@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {% block header %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/shell.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/canvas.css') }}" type="text/css">
+<script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+<script src="{{ url_for('static', filename='js/canvas.js') }}"></script>
 {% endblock header %}
 {% block content %}
-<div id="main" class="container content">
-  <h1>p5Live</h1>
-  <article id="shell"></article>
-  <script src="{{ url_for('static', filename='js/shell.js') }}"></script>
+<h1>p5Live</h1>
+<div id="main" class="content">
+  <article id="editor"></article>
+  <canvas id="glcanvas"></canvas>
   <script>
     $.when($.ready).then(function () {
-      let shell = new Shell('#shell');
-      shell.focus();
+      let editor = new Editor('#editor');
+      let canvas = new Canvas('#glcanvas');
+      editor.focus();
     });
   </script>
 </div>

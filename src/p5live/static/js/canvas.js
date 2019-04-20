@@ -188,15 +188,17 @@ class Canvas {
     this.vshader = null;
     this.fshader = null;
     this.program = null;
+    this.positionBuffer = null;
     if (!this.initShaders()) {
       return;
     }
     if (!this.initProgram()) {
       return;
     }
+    this.initBuffers();
     this.programInfo = {
       buffers: {
-        position: this.gl.createBuffer(),
+        position: this.positionBuffer,
       },
       attributes: {
         position: this.gl.getAttribLocation(this.program, 'a_position'),
@@ -220,16 +222,6 @@ class Canvas {
       },
     };
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.programInfo.buffers.position);
-    this.gl.bufferData(
-      this.gl.ARRAY_BUFFER,
-      new Float32Array([
-        -1.0, -1.0,
-        -1.0, 1.0,
-        1.0, -1.0,
-        1.0, 1.0,
-      ]),
-      this.gl.STATIC_DRAW
-    );
     this.gl.vertexAttribPointer(this.programInfo.attributes.position, 2, this.gl.FLOAT, false, 0, 0);
     this.gl.enableVertexAttribArray(this.programInfo.attributes.position),
     this.gl.uniform1f(this.programInfo.aspectRatio, this.gl.canvas.clientWidth/this.gl.canvas.clientHeight);
@@ -282,5 +274,20 @@ class Canvas {
       return false;
     }
     return true;
+  }
+
+  initBuffers() {
+    this.positionBuffer = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
+    this.gl.bufferData(
+      this.gl.ARRAY_BUFFER,
+      new Float32Array([
+        -1.0, -1.0,
+        -1.0, 1.0,
+        1.0, -1.0,
+        1.0, 1.0,
+      ]),
+      this.gl.STATIC_DRAW
+    );
   }
 }

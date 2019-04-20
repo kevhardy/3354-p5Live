@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}" type="text/css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/canvas.css') }}" type="text/css">
 <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
-<script src="{{ url_for('static', filename='js/canvas.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/canvas.js') }}"></script> -->
 {% endblock header %}
 {% block content %}
 <h1>p5Live</h1>
@@ -13,9 +13,11 @@
   <script>
     $.when($.ready).then(function () {
       let editor = new Editor('#editor');
-      let canvas = new Canvas('#glcanvas');
+      // let canvas = new Canvas('#glcanvas')
       editor.focus();
     });
   </script>
+  <script src="{{ url_for('static', filename='js/gl-matrix.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/webgl-demo.js') }}"></script>
 </div>
 {% endblock content %}

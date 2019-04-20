@@ -177,117 +177,122 @@ void main() {
 }
 `
 
-class Canvas {
-  constructor(element) {
-    this.selfEl = $(element) || $(document.body);
-    this.gl = this.selfEl[0].getContext('webgl');
-    if (this.gl === null) {
-      alert('Unable to initialize WebGL. Check to ensure WebGL is supported by your browser.');
-      return;
-    }
-    this.vshader = null;
-    this.fshader = null;
-    this.program = null;
-    this.positionBuffer = null;
-    if (!this.initShaders()) {
-      return;
-    }
-    if (!this.initProgram()) {
-      return;
-    }
-    this.initBuffers();
-    this.programInfo = {
-      buffers: {
-        position: this.positionBuffer,
-      },
-      attributes: {
-        position: this.gl.getAttribLocation(this.program, 'a_position'),
-      },
-      uniforms: {
-        aspectRatio: this.gl.getUniformLocation(this.program, 'u_aspect_ratio'),
-        spherePosition0: this.gl.getUniformLocation(this.program, 'sphere_position_0'),
-        spherePosition1: this.gl.getUniformLocation(this.program, 'sphere_position_1'),
-        sphereRadius0: this.gl.getUniformLocation(this.program, 'sphere_radius_0'),
-        sphereRadius1: this.gl.getUniformLocation(this.program, 'sphere_radius_1'),
-        sphereColor0: this.gl.getUniformLocation(this.program, 'sphere_color_0'),
-        sphereColor1: this.gl.getUniformLocation(this.program, 'sphere_color_1'),
-        planePosition: this.gl.getUniformLocation(this.program, 'plane_position'),
-        planeNormal: this.gl.getUniformLocation(this.program, 'plane_normal'),
-        lightIntensity: this.gl.getUniformLocation(this.program, 'light_intensity'),
-        lightSpecular: this.gl.getUniformLocation(this.program, 'light_specular'),
-        lightPosition: this.gl.getUniformLocation(this.program, 'light_position'),
-        lightColor: this.gl.getUniformLocation(this.program, 'light_color'),
-        ambient: this.gl.getUniformLocation(this.program, 'ambient'),
-        O: this.gl.getUniformLocation(this.program, 'O'),
-      },
-    };
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.programInfo.buffers.position);
-    this.gl.vertexAttribPointer(this.programInfo.attributes.position, 2, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(this.programInfo.attributes.position),
-    this.gl.uniform1f(this.programInfo.aspectRatio, this.gl.canvas.clientWidth/this.gl.canvas.clientHeight);
-    this.gl.uniform3fv(this.programInfo.spherePosition0, [0.75, 0.1, 1.0]);
-    this.gl.uniform1f(this.programInfo.sphereRadius0, 0.6);
-    this.gl.uniform3fv(this.programInfo.sphereColor0, [0.0, 0.0, 1.0]);
-    this.gl.uniform3fv(this.programInfo.spherePosition1, [-0.75, 0.1, 2.25]);
-    this.gl.uniform1f(this.programInfo.sphereRadius1, 0.6);
-    this.gl.uniform3fv(this.programInfo.sphereColor1, [0.5, 0.223, 0.5]);
-    this.gl.uniform3fv(this.programInfo.planePosition, [0.0, -0.5, 0.0]);
-    this.gl.uniform3fv(this.programInfo.planeNormal, [0.0, 1.0, 0.0]);
-    this.gl.uniform1f(this.programInfo.lightIntensity, 1.0);
-    this.gl.uniform2fv(this.programInfo.lightSpecular, [1.0, 50.0]);
-    this.gl.uniform3fv(this.programInfo.lightPosition, [5.0, 5.0, -10.0]);
-    this.gl.uniform3fv(this.programInfo.lightColor, [1.0, 1.0, 1.0]);
-    this.gl.uniform1f(this.programInfo.ambient, 0.05);
-    this.gl.uniform3fv(this.programInfo.O, [0.0, 0.0, -1.0]);
-    this.gl.useProgram(this.program);
-    this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
+function drawCanvas(element) {
+  let gl = $(element)[0].getContext('webgl');
+  if (gl === null) {
+    alert('Unable to initialize WebGL. Check to ensure WebGL is supported by your browser.');
+    return;
   }
+  let program = initProgram(gl);
+  let programInfo = {
+    buffers: {
+      position: initPositionBuffer(gl),
+    },
+    attributes: {
+      position: gl.getAttribLocation(program, 'a_position'),
+    },
+    uniforms: {
+      aspectRatio: gl.getUniformLocation(program, 'u_aspect_ratio'),
+      spherePosition0: gl.getUniformLocation(program, 'sphere_position_0'),
+      spherePosition1: gl.getUniformLocation(program, 'sphere_position_1'),
+      sphereRadius0: gl.getUniformLocation(program, 'sphere_radius_0'),
+      sphereRadius1: gl.getUniformLocation(program, 'sphere_radius_1'),
+      sphereColor0: gl.getUniformLocation(program, 'sphere_color_0'),
+      sphereColor1: gl.getUniformLocation(program, 'sphere_color_1'),
+      planePosition: gl.getUniformLocation(program, 'plane_position'),
+      planeNormal: gl.getUniformLocation(program, 'plane_normal'),
+      lightIntensity: gl.getUniformLocation(program, 'light_intensity'),
+      lightSpecular: gl.getUniformLocation(program, 'light_specular'),
+      lightPosition: gl.getUniformLocation(program, 'light_position'),
+      lightColor: gl.getUniformLocation(program, 'light_color'),
+      ambient: gl.getUniformLocation(program, 'ambient'),
+      O: gl.getUniformLocation(program, 'O'),
+    },
+  };
+  // initial values
+  gl.useProgram(program);
+  gl.uniform3fv(programInfo.uniforms.spherePosition0, [0.75, 0.1, 1.0]);
+  gl.uniform1f(programInfo.uniforms.sphereRadius0, 0.6);
+  gl.uniform3fv(programInfo.uniforms.sphereColor0, [0.0, 0.0, 1.0]);
+  gl.uniform3fv(programInfo.uniforms.spherePosition1, [-0.75, 0.1, 2.25]);
+  gl.uniform1f(programInfo.uniforms.sphereRadius1, 0.6);
+  gl.uniform3fv(programInfo.uniforms.sphereColor1, [0.5, 0.223, 0.5]);
+  gl.uniform3fv(programInfo.uniforms.planePosition, [0.0, -0.5, 0.0]);
+  gl.uniform3fv(programInfo.uniforms.planeNormal, [0.0, 1.0, 0.0]);
+  gl.uniform1f(programInfo.uniforms.lightIntensity, 1.0);
+  gl.uniform2fv(programInfo.uniforms.lightSpecular, [1.0, 50.0]);
+  gl.uniform3fv(programInfo.uniforms.lightPosition, [5.0, 5.0, -10.0]);
+  gl.uniform3fv(programInfo.uniforms.lightColor, [1.0, 1.0, 1.0]);
+  gl.uniform1f(programInfo.uniforms.ambient, 0.05);
+  gl.uniform3fv(programInfo.uniforms.O, [0.0, 0.0, -1.0]);
+  requestAnimationFrame(render);
 
-  initShaders() {
-    let state = true;
-    this.vshader = this.gl.createShader(this.gl.VERTEX_SHADER);
-    this.fshader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-    this.gl.shaderSource(this.vshader, vertex);
-    this.gl.shaderSource(this.fshader, fragment);
-    this.gl.compileShader(this.vshader);
-    this.gl.compileShader(this.fshader);
-    if (!this.gl.getShaderParameter(this.vshader, this.gl.COMPILE_STATUS)) {
-      alert('An error occured while compiling vertex shader:\n' + this.gl.getShaderInfoLog(vshader));
-      this.gl.deleteShader(this.vshader);
-      state = false;
-    }
-    if (!this.gl.getShaderParameter(this.fshader, this.gl.COMPILE_STATUS)) {
-      alert('An error occured while compiling fragment shader:\n' + this.gl.getShaderInfoLog(fshader));
-      this.gl.deleteShader(this.fshader);
-      state = false;
-    }
-    return state;
+  function render(time) {
+    time *= 0.001;
+    let position0 = [0.75, 0.1, 2.0 + 1.0*Math.cos(4*time)];
+    let position1 = [-0.75, 0.1, 2.0 - 1.0*Math.cos(4*time)];
+    resizeCanvas(gl.canvas);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    gl.bindBuffer(gl.ARRAY_BUFFER, programInfo.buffers.position);
+    gl.vertexAttribPointer(programInfo.attributes.position, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(programInfo.attributes.position),
+    gl.useProgram(program);
+    gl.uniform1f(programInfo.uniforms.aspectRatio, gl.canvas.width/gl.canvas.height);
+    gl.uniform3fv(programInfo.uniforms.spherePosition0, position0);
+    gl.uniform3fv(programInfo.uniforms.spherePosition1, position1);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
   }
+}
 
-  initProgram() {
-    this.program = this.gl.createProgram();
-    this.gl.attachShader(this.program, this.vshader);
-    this.gl.attachShader(this.program, this.fshader);
-    this.gl.linkProgram(this.program);
-    if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
-      alert('Error encountered while linking program:\n' + this.gl.getProgramInfoLog(this.program));
-      return false;
-    }
-    return true;
+function initShader(gl, type, source) {
+  let shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    alert('An error occured while compiling vertex shader:\n' + gl.getShaderInfoLog(shader));
+    gl.deleteShader(shader);
+    return null;
   }
+  return shader;
+}
 
-  initBuffers() {
-    this.positionBuffer = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
-    this.gl.bufferData(
-      this.gl.ARRAY_BUFFER,
-      new Float32Array([
-        -1.0, -1.0,
-        -1.0, 1.0,
-        1.0, -1.0,
-        1.0, 1.0,
-      ]),
-      this.gl.STATIC_DRAW
-    );
+function initProgram(gl) {
+  let vshader = initShader(gl, gl.VERTEX_SHADER, vertex);
+  let fshader = initShader(gl, gl.FRAGMENT_SHADER, fragment);
+  let program = gl.createProgram();
+  gl.attachShader(program, vshader);
+  gl.attachShader(program, fshader);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    alert('Error encountered while linking program:\n' + gl.getProgramInfoLog(program));
+    return null;
+  }
+  return program;
+}
+
+function initPositionBuffer(gl) {
+  let positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([
+      -1.0, -1.0,
+      -1.0, 1.0,
+      1.0, -1.0,
+      1.0, 1.0,
+    ]),
+    gl.STATIC_DRAW
+  );
+  return positionBuffer;
+}
+
+function resizeCanvas(canvas) {
+  let displayWidth = canvas.clientWidth;
+  let displayHeight = canvas.clientHeight;
+  if (canvas.width != displayWidth
+    || canvas.height != displayHeight) {
+    canvas.width = displayWidth;
+    canvas.height = displayHeight;
   }
 }

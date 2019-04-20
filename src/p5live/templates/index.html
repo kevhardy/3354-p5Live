@@ -9,12 +9,12 @@
 <h1>p5Live</h1>
 <div id="main" class="content">
   <article id="editor"></article>
-  <canvas id="glcanvas"></canvas>
+  <canvas id="glcanvas" width="1920" height="1080"></canvas>
   <script>
     $.when($.ready).then(function () {
       let editor = new Editor('#editor');
-      let canvas = new Canvas('#glcanvas')
       editor.focus();
+      drawCanvas('#glcanvas');
     });
   </script>
   <!-- <script src="{{ url_for('static', filename='js/gl-matrix.js') }}"></script> -->

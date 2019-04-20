@@ -22,8 +22,8 @@ program['light_color'] = (1., 1., 1.)
 program['ambient'] = .05
 program['O'] = (0., 0., -1.)
 
-width, height = self.size
-p5.set_viewport(0, 0, *self.physical_size)
+width, height = p5.size
+p5.set_viewport(0, 0, width, height)
 program['u_aspect_ratio'] = width/float(height)
 
 show()

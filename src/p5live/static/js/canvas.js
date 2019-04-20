@@ -1,8 +1,6 @@
 'use strict'
 
 const vertex = `
-#version 120
-
 attribute vec2 a_position;
 varying vec2 v_position;
 void main()
@@ -13,7 +11,7 @@ void main()
 `;
 
 const fragment = `
-#version 120
+precision highp float;
 
 const float M_PI = 3.14159265358979323846;
 const float INFINITY = 1000000000.;
@@ -86,7 +84,6 @@ float intersect_plane(vec3 O, vec3 D, vec3 P, vec3 N) {
 vec3 run(float x, float y) {
     vec3 Q = vec3(x, y, 0.);
     vec3 D = normalize(Q - O);
-    int depth = 0;
     float t_plane, t0, t1;
     vec3 rayO = O;
     vec3 rayD = D;
@@ -101,7 +98,7 @@ vec3 run(float x, float y) {
     vec3 M;
     vec3 N, toL, toO;
 
-    while (depth < 5) {
+    for (int depth = 0; depth < 5; depth++) {
 
         /* start trace_ray */
 
@@ -114,7 +111,7 @@ vec3 run(float x, float y) {
             M = rayO + rayD * t_plane;
             object_normal = plane_normal;
             // Plane texture.
-            if (mod(int(2*M.x), 2) == mod(int(2*M.z), 2)) {
+            if (mod(floor(2.*M.x), 2.) == mod(floor(2.*M.z), 2.)) {
                 object_color = vec3(1., 1., 1.);
             }
             else {
@@ -169,8 +166,6 @@ vec3 run(float x, float y) {
         rayD = normalize(rayD - 2. * dot(rayD, N) * N);
         col += reflection * col_ray;
         reflection *= object_reflection;
-
-        depth++;
     }
 
     return clamp(col, 0., 1.);
@@ -190,35 +185,102 @@ class Canvas {
       alert('Unable to initialize WebGL. Check to ensure WebGL is supported by your browser.');
       return;
     }
-    this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+    this.vshader = null;
+    this.fshader = null;
+    this.program = null;
     if (!this.initShaders()) {
       return;
     }
-    this.runDemo();
+    if (!this.initProgram()) {
+      return;
+    }
+    this.programInfo = {
+      buffers: {
+        position: this.gl.createBuffer(),
+      },
+      attributes: {
+        position: this.gl.getAttribLocation(this.program, 'a_position'),
+      },
+      uniforms: {
+        aspectRatio: this.gl.getUniformLocation(this.program, 'u_aspect_ratio'),
+        spherePosition0: this.gl.getUniformLocation(this.program, 'sphere_position_0'),
+        spherePosition1: this.gl.getUniformLocation(this.program, 'sphere_position_1'),
+        sphereRadius0: this.gl.getUniformLocation(this.program, 'sphere_radius_0'),
+        sphereRadius1: this.gl.getUniformLocation(this.program, 'sphere_radius_1'),
+        sphereColor0: this.gl.getUniformLocation(this.program, 'sphere_color_0'),
+        sphereColor1: this.gl.getUniformLocation(this.program, 'sphere_color_1'),
+        planePosition: this.gl.getUniformLocation(this.program, 'plane_position'),
+        planeNormal: this.gl.getUniformLocation(this.program, 'plane_normal'),
+        lightIntensity: this.gl.getUniformLocation(this.program, 'light_intensity'),
+        lightSpecular: this.gl.getUniformLocation(this.program, 'light_specular'),
+        lightPosition: this.gl.getUniformLocation(this.program, 'light_position'),
+        lightColor: this.gl.getUniformLocation(this.program, 'light_color'),
+        ambient: this.gl.getUniformLocation(this.program, 'ambient'),
+        O: this.gl.getUniformLocation(this.program, 'O'),
+      },
+    };
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.programInfo.buffers.position);
+    this.gl.bufferData(
+      this.gl.ARRAY_BUFFER,
+      new Float32Array([
+        -1.0, -1.0,
+        -1.0, 1.0,
+        1.0, -1.0,
+        1.0, 1.0,
+      ]),
+      this.gl.STATIC_DRAW
+    );
+    this.gl.vertexAttribPointer(this.programInfo.attributes.position, 2, this.gl.FLOAT, false, 0, 0);
+    this.gl.enableVertexAttribArray(this.programInfo.attributes.position),
+    this.gl.uniform1f(this.programInfo.aspectRatio, this.gl.canvas.clientWidth/this.gl.canvas.clientHeight);
+    this.gl.uniform3fv(this.programInfo.spherePosition0, [0.75, 0.1, 1.0]);
+    this.gl.uniform1f(this.programInfo.sphereRadius0, 0.6);
+    this.gl.uniform3fv(this.programInfo.sphereColor0, [0.0, 0.0, 1.0]);
+    this.gl.uniform3fv(this.programInfo.spherePosition1, [-0.75, 0.1, 2.25]);
+    this.gl.uniform1f(this.programInfo.sphereRadius1, 0.6);
+    this.gl.uniform3fv(this.programInfo.sphereColor1, [0.5, 0.223, 0.5]);
+    this.gl.uniform3fv(this.programInfo.planePosition, [0.0, -0.5, 0.0]);
+    this.gl.uniform3fv(this.programInfo.planeNormal, [0.0, 1.0, 0.0]);
+    this.gl.uniform1f(this.programInfo.lightIntensity, 1.0);
+    this.gl.uniform2fv(this.programInfo.lightSpecular, [1.0, 50.0]);
+    this.gl.uniform3fv(this.programInfo.lightPosition, [5.0, 5.0, -10.0]);
+    this.gl.uniform3fv(this.programInfo.lightColor, [1.0, 1.0, 1.0]);
+    this.gl.uniform1f(this.programInfo.ambient, 0.05);
+    this.gl.uniform3fv(this.programInfo.O, [0.0, 0.0, -1.0]);
+    this.gl.useProgram(this.program);
+    this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
   }
 
   initShaders() {
-    state = true;
-    this.gl.shaderSource(this.gl.VERTEX_SHADER, vertex);
-    this.gl.shaderSource(this.gl.FRAGMENT_SHADER, fragment);
-    this.gl.compileShader(this.gl.VERTEX_SHADER);
-    this.gl.compileShader(this.gl.FRAGMENT_SHADER);
-    if (!this.gl.getShaderParameter(this.gl.VERTEX_SHADER, this.gl.COMPILE_STATUS)) {
-      alert('An error occured while compiling vertex shader: ' + this.gl.getShaderInfoLog(this.gl.VERTEX_SHADER));
-      this.gl.deleteShader(this.gl.VERTEX_SHADER);
+    let state = true;
+    this.vshader = this.gl.createShader(this.gl.VERTEX_SHADER);
+    this.fshader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
+    this.gl.shaderSource(this.vshader, vertex);
+    this.gl.shaderSource(this.fshader, fragment);
+    this.gl.compileShader(this.vshader);
+    this.gl.compileShader(this.fshader);
+    if (!this.gl.getShaderParameter(this.vshader, this.gl.COMPILE_STATUS)) {
+      alert('An error occured while compiling vertex shader:\n' + this.gl.getShaderInfoLog(vshader));
+      this.gl.deleteShader(this.vshader);
       state = false;
     }
-    if (!this.gl.getShaderParameter(this.gl.FRAGMENT_SHADER, this.gl.COMPILE_STATUS)) {
-      alert('An error occured while compiling vertex shader: ' + this.gl.getShaderInfoLog(this.gl.FRAGMENT_SHADER));
-      this.gl.deleteShader(this.gl.FRAGMENT_SHADER);
+    if (!this.gl.getShaderParameter(this.fshader, this.gl.COMPILE_STATUS)) {
+      alert('An error occured while compiling fragment shader:\n' + this.gl.getShaderInfoLog(fshader));
+      this.gl.deleteShader(this.fshader);
       state = false;
     }
-    if (!state) {
-      return state;
-    }
+    return state;
   }
 
-  runDemo() {
+  initProgram() {
+    this.program = this.gl.createProgram();
+    this.gl.attachShader(this.program, this.vshader);
+    this.gl.attachShader(this.program, this.fshader);
+    this.gl.linkProgram(this.program);
+    if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+      alert('Error encountered while linking program:\n' + this.gl.getProgramInfoLog(this.program));
+      return false;
+    }
+    return true;
   }
 }
